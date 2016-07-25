@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ECSHOP 管理中心 - 商品分类 </title>
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="./app/view/back/styles/general.css" rel="stylesheet" type="text/css" />
+<link href="./app/view/back/styles/main.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<h1>
+<span class="action-span"><a href="index.php?p=back&c=Goods&a=add">添加商品</a></span>
+<span class="action-span1"><a href="index.php?act=main">ECSHOP 管理中心</a> </span><span id="search_id" class="action-span1"> - 商品列表 </span>
+<div style="clear:both"></div>
+</h1>
+<form method="post" action="" name="listForm">
+<!-- start ad position list -->
+<div class="list-div" id="listDiv">
+
+<table width="100%" cellspacing="1" cellpadding="2" id="list-table">
+  <tr>
+    <th>编号</th>
+    <th>名称</th>
+    <th>货号</th>
+    <th>价格</th>
+	<th>上架</th>
+    <th>精品</th>
+    <th>新品</th>
+    <th>热销</th>
+	<th>库存</th>
+    <th>操作</th>
+  </tr>
+  <?php foreach ($list as $row) : ?>
+    <tr align="center" class="0" id="0_6">
+	<td align="left" class="first-cell" >
+	<?php echo $row['goods_id'];?>
+	</td>
+    <td align="left">
+	<?php echo $row['goods_name'];?>
+	</td>
+	<td align="left">
+	<?php echo $row['goods_sn'];?>
+	</td>
+	<td align="right">
+	<?php echo $row['shop_price'];?>
+	</td>
+
+	<td align="center">
+	<img src="app/view/back/images/<?php echo $row['is_on_sale']?'yes':'no';?>.gif" />
+	</td>
+
+	<td align="center">
+	<img src="app/view/back/images/<?php echo $row['goods_status']&1?'yes':'no';?>.gif" />
+	</td>
+	<td align="center">
+	<img src="app/view/back/images/<?php echo $row['goods_status']&2?'yes':'no';?>.gif" />
+	</td>
+	<td align="center">
+	<img src="app/view/back/images/<?php echo $row['goods_status']&4?'yes':'no';?>.gif" />
+	</td>
+
+    <td align="right">
+	<?php echo $row['goods_number'];?>
+	</td>
+
+    <td width="24%" align="center">
+      <a href="#">删除</a> |
+      <a href="#">编辑</a>
+    </td>
+  </tr>
+  <?php endForeach;?>
+  </table>
+  <!-- 翻页的table -->
+  <table cellspacing="0" id="page-table">
+  <tr>
+    <td nowrap="true" align="right" style="background-color: rgb(255, 255, 255);">
+      <div id="turn-page">
+        <input type="text" value="<?php echo $pagesize;?>" onblur="window.location.href='index.php?p=back&c=Goods&a=list&pagesize='+this.value" size="3">
+
+	  <a href="index.php?p=back&c=Goods&a=list&pagesize=<?php echo $pagesize;?>&page=1">第一页</a>
+	  <?php if($page == 1) :?>
+	  上一页
+	  <?php else: ?>
+	  <a href="index.php?p=back&c=Goods&a=list&pagesize=<?php echo $pagesize;?>&page=<?php echo $page-1;?>">上一页</a>
+	  <?php endIf;?>
+	  <?php if ($page == $total_page) :?>
+	  <a href="index.php?p=back&c=Goods&a=list&pagesize=<?php echo $pagesize;?>&page=1">下一页</a>
+	  <?php else:?>
+	  <a href="index.php?p=back&c=Goods&a=list&pagesize=<?php echo $pagesize;?>&page=<?php echo $page+1;?>">下一页</a>
+	  <?php endIf;?>
+	  <a href="index.php?p=back&c=Goods&a=list&pagesize=<?php echo $pagesize;?>&page=<?php echo $total_page;?>">最末页</a>
+
+	  <select onchange="window.location.href='index.php?p=back&c=Goods&a=list&pagesize=<?php echo $pagesize;?>&page='+this.value">
+		<?php for($p=1; $p<=$total_page; ++$p) :?>
+		<option value="<?php echo $p;?>" 
+		<?php echo $p==$page?'selected':'';?>
+		><?php echo $p;?></option>
+		<?php endFor;?>
+	  </select>
+
+	  <br>
+	  <!-- <?php echo $page_html;?> -->
+      </div>
+    </td>
+  </tr>
+</table>
+
+</div>
+</form>
+
+<div id="footer">
+&copy;ITCAST-PHP-PHP1016
+</div>
+</body>
+</html>
